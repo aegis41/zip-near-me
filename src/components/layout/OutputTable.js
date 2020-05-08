@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import { useTable } from 'react-table';
 
-export class OutputTable extends Component {
+class OutputTable extends Component {
 
     columns = React.useMemo(
         () => [
@@ -24,42 +25,42 @@ export class OutputTable extends Component {
         []
     )
 
-    makeRows = (data) => {
-        if (data) {
-            return data.map((row) => {
-                return (
-                    <tr>
-                        <td>{row.zip_code}</td>
-                        <td>{row.distance}</td>
-                        <td>{row.city}</td>
-                        <td>{row.state}</td>
-                    </tr>
-                );
-            });
-        } else {
-            return <React.Fragment />
-        }
+    const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+} = useTable({ columns, data });
     }
 
-    render() {
-        return (
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ZIP Code</th>
-                            <th>Distance</th>
-                            <th>City</th>
-                            <th>State</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.props.data ? this.makeRows(this.props.data) : <React.Fragment />}
-                    </tbody>
-                </table>
-            </div>
-        )
-    }
+render() {
+    return (
+        <table {...getTableProps()}>
+            <thead>
+                {headerGroups.map(headerGroup => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map(column => (
+                            <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                        ))}
+                    </tr>
+                ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+                rows.map(row => {
+                    prepareRow(row)
+                        return (
+                            <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                        return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                    })}
+                </tr>
+                        )
+                    })
+                </tbody>
+        </table>
+    );
+}
 }
 
 export default OutputTable
