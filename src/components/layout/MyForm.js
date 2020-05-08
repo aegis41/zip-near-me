@@ -15,6 +15,4 @@ class MyForm extends Component {
     }
 };
 
-
-
 export default MyForm;
