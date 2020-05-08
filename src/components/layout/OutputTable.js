@@ -1,28 +1,6 @@
 import React, { Component } from 'react'
 
-export class OutputTable extends Component {
-
-    columns = React.useMemo(
-        () => [
-            {
-                header: "ZIP Code",
-                accessor: 'zip_code'
-            },
-            {
-                header: "Distance",
-                accessor: 'distance'
-            },
-            {
-                header: "City",
-                accessor: 'city'
-            },
-            {
-                header: "State",
-                accessor: 'state'
-            }
-        ],
-        []
-    )
+class OutputTable extends Component {
 
     makeRows = (data) => {
         if (data) {
