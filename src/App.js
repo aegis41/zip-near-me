@@ -7,25 +7,26 @@ class App extends Component {
 
   state = {
     myZIP: "",
-    myRadius: 0
+    myRadius: 0,
+    data: {}
   };
 
-  stubData = {
-    "zip_codes": [
-      {
-        "zip_code": "46806",
-        "distance": 1.596,
-        "city": "Fort Wayne",
-        "state": "IN"
-      },
-      {
-        "zip_code": "46803",
-        "distance": 0,
-        "city": "Fort Wayne",
-        "state": "IN"
-      }
-    ]
-  };
+  // stubData = {
+  //   "zip_codes": [
+  //     {
+  //       "zip_code": "46806",
+  //       "distance": 1.596,
+  //       "city": "Fort Wayne",
+  //       "state": "IN"
+  //     },
+  //     {
+  //       "zip_code": "46803",
+  //       "distance": 0,
+  //       "city": "Fort Wayne",
+  //       "state": "IN"
+  //     }
+  //   ]
+  // };
 
   handleChange = (event) => {
     const { target: { name, value } } = event;
@@ -33,7 +34,13 @@ class App extends Component {
   }
 
   getZIPs = () => {
-    console.log(this.state)
+    fetch(`https://www.zipcodeapi.com/rest/js-4rDY3hvEilCdu8rTFJLsRn2h1d5WhkCHxY7XaHtKN8RdzemYMQaCD2zCBMQUw3e1/radius.json/${this.state.myZIP}/${this.state.myRadius}/mile`)
+      .then(response => response.json())
+      .then(res => {
+        this.setState({
+          data: res
+        });
+      })
   }
 
   render() {
@@ -45,7 +52,7 @@ class App extends Component {
           getZIPs={this.getZIPs}
         />
         <OutputTable
-          data={this.stubData.zip_codes}
+          data={this.state.data.zip_codes}
         />
       </div>
     )
