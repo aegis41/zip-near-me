@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+table {
+  border-collapse: collapse;
+  width: 50%;
+}
+
+th, td {
+  padding: 0.25rem;
+  text-align: left;
+  border: 1px solid #aaaaaa;
+}
+
+tbody tr:nth-child(odd) {
+  background: #eeeeee;
+}
+
+tbody tr:hover {
+  background: #cccccc;
+}
+
+div.outputTable {
+  margin: 1rem;
+}
